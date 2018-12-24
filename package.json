@@ -1,0 +1,42 @@
+{
+  "name": "vuejs-and-typescript-chrome-extention-template",
+  "description": "Vue.js and TypeScript Chrome Extension template",
+  "version": "1.0.0",
+  "author": "rika-t",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "watch":            "npm-run-all --parallel watch:*",
+    "watch:typescript": "tsc -w --preserveWatchOutput",
+    "watch:webpack":    "webpack --mode development --hide-modules --progress --watch",
+    "build:dev":        "webpack --mode development --hide-modules",
+    "build:prod":       "webpack --mode production  --hide-modules -p --progress --colors"
+  },
+  "dependencies": {
+    "element-ui": "^2.4.11",
+    "vue": "^2.5.21",
+    "vue-router": "^3.0.2"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^1.0.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^2.0.2",
+    "file-loader": "^3.0.1",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "npm-run-all": "^4.1.5",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "sass-loader": "^7.1.0",
+    "ts-loader": "^5.3.2",
+    "typescript": "^3.2.2",
+    "url-loader": "^1.1.2",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-merge": "^4.1.5",
+    "zip-webpack-plugin": "^3.0.0"
+  }
+}
