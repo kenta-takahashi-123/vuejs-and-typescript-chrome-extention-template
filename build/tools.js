@@ -15,19 +15,24 @@ exports.htmlPage = (title, filename, chunks, template) => new HtmlWebpackPlugin(
 
 exports.cssLoaders = (options = {}) => {
   let loaders = {};
-  let prePprocessors = {
+  let preProcessors = {
     css: {},
     postcss: {},
-    scss: {loader: 'sass'},
+    scss: {
+      loader: 'sass',
+      options: {
+        implementation: require('sass')
+      }
+    },
   };
-  for (let key in prePprocessors) {
+  for (let key in preProcessors) {
     let loader = [{
       loader: 'css-loader'
     }];
-    if (prePprocessors[key].loader) {
+    if (preProcessors[key].loader) {
       loader.push({
-        loader: prePprocessors[key].loader + '-loader',
-        options: Object.assign({}, prePprocessors[key].options, {sourceMap: options.sourceMap})
+        loader: preProcessors[key].loader + '-loader',
+        options: Object.assign({}, preProcessors[key].options, {sourceMap: options.sourceMap})
       })
     }
     if (options.extract) {
