@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {cssLoaders, htmlPage, styleLoaders} = require('./build/tools');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -31,6 +31,9 @@ module.exports = (env, argv) => {
           source: 'src',
           img: 'src',
           image: 'xlink:href'
+        },
+        optimization: {
+          noEmitOnErrors: true
         }
       }
     },
@@ -53,7 +56,19 @@ module.exports = (env, argv) => {
     }
   ]);
 
-  let plugins = (isProduction
+  let plugins = [
+    new VueLoaderPlugin(),
+    new CleanWebpackPlugin(),
+    // Customize your extension structure.
+    htmlPage('home', 'app', ['manifest', 'vendor', 'tab']),
+    htmlPage('popup', 'popup', ['manifest', 'vendor', 'popup']),
+    htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
+    htmlPage('background', 'background', ['manifest', 'vendor', 'background']),
+    // End customize
+    new CopyWebpackPlugin([
+      {from: path.join(rootDir, 'static')}
+    ])
+  ].concat(isProduction
       ? [
         new OptimizeCSSPlugin({cssProcessorOptions: {safe: true}}),
         new MiniCssExtractPlugin({filename: 'css/[name].css'}),
@@ -64,21 +79,9 @@ module.exports = (env, argv) => {
         })
       ]
       : [
-        new webpack.NoEmitOnErrorsPlugin(),
         new FriendlyErrorsPlugin()
       ]
-  ).concat([
-    new webpack.NoEmitOnErrorsPlugin(),
-    new VueLoaderPlugin(),
-    new CleanWebpackPlugin(['*'], {root: path.join(rootDir, 'dist')}),
-    // Customize your extension structure.
-    htmlPage('home', 'app', ['manifest', 'vendor', 'tab']),
-    htmlPage('popup', 'popup', ['manifest', 'vendor', 'popup']),
-    htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
-    htmlPage('background', 'background', ['manifest', 'vendor', 'background']),
-    // End customize
-    new CopyWebpackPlugin([{from: path.join(rootDir, 'static')}])
-  ]);
+  );
 
   return {
     entry: {
