@@ -7,7 +7,6 @@ const {cssLoaders, htmlPage, styleLoaders} = require('./build/tools');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ZipPlugin = require('zip-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '.');
 let resolve = (dir) => path.join(rootDir, 'src', dir);
@@ -70,7 +69,6 @@ module.exports = (env, argv) => {
     ])
   ].concat(isProduction
       ? [
-        new OptimizeCSSPlugin({cssProcessorOptions: {safe: true}}),
         new MiniCssExtractPlugin({filename: 'css/[name].css'}),
         new webpack.HashedModuleIdsPlugin(),
         new ZipPlugin({
