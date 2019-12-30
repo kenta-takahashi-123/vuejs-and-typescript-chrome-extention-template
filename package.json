@@ -6,11 +6,11 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "watch":            "npm-run-all --parallel watch:*",
+    "watch": "npm-run-all --parallel watch:*",
     "watch:typescript": "tsc -w --preserveWatchOutput",
-    "watch:webpack":    "webpack --mode development --hide-modules --progress --watch",
-    "build:dev":        "webpack --mode development --hide-modules",
-    "build:prod":       "webpack --mode production  --hide-modules -p --progress --colors"
+    "watch:webpack": "webpack --mode development --hide-modules --progress --watch",
+    "build:dev": "webpack --mode development --hide-modules",
+    "build:prod": "webpack --mode production  --hide-modules -p --progress --colors"
   },
   "dependencies": {
     "element-ui": "^2.12.0",
