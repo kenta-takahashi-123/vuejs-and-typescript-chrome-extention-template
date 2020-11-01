@@ -64,9 +64,11 @@ module.exports = (env, argv) => {
     htmlPage('options', 'options', ['manifest', 'vendor', 'options']),
     htmlPage('background', 'background', ['manifest', 'vendor', 'background']),
     // End customize
-    new CopyWebpackPlugin([
-      {from: path.join(rootDir, 'static')}
-    ])
+    new CopyWebpackPlugin({
+      patterns: [
+        {from: path.join(rootDir, 'static')}
+      ]
+    })
   ].concat(isProduction
       ? [
         new MiniCssExtractPlugin({filename: 'css/[name].css'}),
@@ -108,6 +110,6 @@ module.exports = (env, argv) => {
     },
     plugins: plugins,
     performance: {hints: false},
-    devtool: isProduction ? false : '#cheap-module-source-map',
+    devtool: isProduction ? false : 'cheap-module-source-map',
   }
 };
